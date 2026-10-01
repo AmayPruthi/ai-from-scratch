@@ -1,0 +1,79 @@
+# AI From Scratch
+# V2 - Perceptron
+
+# Starting weights
+w1 = 0.0
+w2 = 0.0
+
+# Starting bias
+b = 0.0
+
+# Learning rate
+learning_rate = 0.1
+
+
+# Step function
+def activate(value):
+    if value >= 0:
+        return 1
+    else:
+        return 0
+
+
+# Perceptron prediction
+def predict(x1, x2):
+    total = (x1 * w1) + (x2 * w2) + b
+    return activate(total)
+
+
+# Training data
+data = [
+    (0, 0, 0),
+    (0, 1, 0),
+    (1, 0, 0),
+    (1, 1, 1)
+]
+
+
+# Train the perceptron
+for epoch in range(10):
+
+    print("Epoch:", epoch + 1)
+
+    for x1, x2, expected in data:
+
+        # Make prediction
+        prediction = predict(x1, x2)
+
+        # Calculate error
+        error = expected - prediction
+
+        # Change weights
+        w1 += learning_rate * error * x1
+        w2 += learning_rate * error * x2
+
+        # Change bias
+        b += learning_rate * error
+
+        print(
+            "Input:", x1, x2,
+            "| Expected:", expected,
+            "| Prediction:", prediction
+        )
+
+    print()
+
+
+# Show final values
+print("Final weights:")
+print("w1 =", w1)
+print("w2 =", w2)
+print("bias =", b)
+
+
+# Test the trained perceptron
+print("\nFinal predictions:")
+
+for x1, x2, expected in data:
+    result = predict(x1, x2)
+    print(x1, "AND", x2, "=", result)
